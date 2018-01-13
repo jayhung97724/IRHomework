@@ -9,7 +9,7 @@ locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 with open('wiki_data_small.json', 'rb') as json_data:    
     wiki_data = json.load(json_data)
 
-top = 1000
+top = 0
 tempDict = OrderedDict()
 for key in range(len(wiki_data)):
     #key = '0'
