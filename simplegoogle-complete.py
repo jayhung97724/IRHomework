@@ -1,8 +1,6 @@
 
 # coding: utf-8
 
-# In[1]:
-
 import json
 import jieba
 import jieba.posseg as pseg
@@ -15,35 +13,26 @@ from googlesearch.newgooglesearch import GoogleSearch
 from timeit import timeit
 import time
 from hanziconv.hanziconv import HanziConv
+import sys
 
+# 有斷詞版本：
+# def cutQuestion(no):
+#     tempDict = OrderedDict()
+#     q = []
+#     words = pseg.cut(q_list[no]['Question'])
+#     for word in words:
+#         if 'n' in word.flag and not tempDict.has_key(word.word):
+#             tempDict.update({word.word:word.flag})
+#     # print json.dumps(tempDict, encoding='utf-8', ensure_ascii=False)
+#     for key in tempDict.keys():
+#         name = key.encode('utf-8')
+#         q.append(name)
+#     qstring = ' '.join(q[0:10])
+#     qstring = qstring[0:31]
+#     # qstring += ' wiki'
+#     print qstring
+#     return qstring
 
-# In[2]:
-
-with open('questions_example.json', 'rb') as qf:
-    q_list = json.load(qf)
-
-
-# In[3]:
-
-def cutQuestion(no):
-    tempDict = OrderedDict()
-    q = []
-    words = pseg.cut(q_list[no]['Question'])
-    for word in words:
-        if 'n' in word.flag and not tempDict.has_key(word.word):
-            tempDict.update({word.word:word.flag})
-    # print json.dumps(tempDict, encoding='utf-8', ensure_ascii=False)
-    for key in tempDict.keys():
-        name = key.encode('utf-8')
-        q.append(name)
-    qstring = ' '.join(q[0:10])
-    qstring = qstring[0:31]
-    # qstring += ' wiki'
-    print qstring
-    return qstring
-
-
-# In[4]:
 
 def cutQuestion1(no):
     qstring = ''
@@ -53,8 +42,6 @@ def cutQuestion1(no):
     return qstring
 
 
-# In[5]:
-
 def Google(qstring):
     response = GoogleSearch().search(qstring, num_results = 7)
     rp = ''
@@ -62,8 +49,6 @@ def Google(qstring):
         rp += response.results[i].title
     return rp
 
-
-# In[6]:
 
 def findAnswer(no):
     ansN = 0
@@ -91,8 +76,6 @@ def findAnswer(no):
     return ans
 
 
-# In[7]:
-
 def ultimate():
     ans_list = []
     for no in range(len(q_list)):
@@ -103,9 +86,15 @@ def ultimate():
     return ans_list
 
 
-# In[8]:
-
 if __name__== "__main__":
+    print sys.argv[0]
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+    else:
+        filename = 'questions_example.json'
+        print '你沒輸入檔名, 故以 %s 為問題集' % filename
+    with open(filename, 'rb') as qf:
+        q_list = json.load(qf)
     tStart = time.time()
     ultimate()
     tEnd = time.time()
