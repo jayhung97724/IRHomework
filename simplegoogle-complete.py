@@ -96,8 +96,12 @@ if __name__== "__main__":
     with open(filename, 'rb') as qf:
         q_list = json.load(qf)
     tStart = time.time()
-    ultimate()
+    final = ultimate()
     tEnd = time.time()
     period = tEnd - tStart
     print "It cost %f sec" % period
-
+    jstring = json.dumps(final)
+    print 'Final Answer: '
+    print jstring
+    with open('myanswer.json', 'wb') as outfile:
+        json.dump(final, outfile)
