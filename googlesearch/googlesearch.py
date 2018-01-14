@@ -13,7 +13,7 @@ from collections import deque
 from time import sleep
         
 class GoogleSearch:
-    USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/ 58.0.3029.81 Safari/537.36"
+    USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"
     SEARCH_URL = "https://google.com/search"
     RESULT_SELECTOR = ".srg h3.r a"
     TOTAL_SELECTOR = "#resultStats"
