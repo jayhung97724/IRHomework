@@ -1,5 +1,6 @@
 # IRHomework
 The final project of 2017 fall IR @NCHU
+Check the project description @ Lab's [repo](https://github.com/UDICatNCHU/QA_Robot_Project)
 
 ## Note:
 wiki_data.json 太大了
