@@ -9,5 +9,5 @@ wiki_data.json 太大了
 我把它放到這裡: [wiki_data.json](https://goo.gl/JvTtt5)
 
 ## Usage:
-1. 將你的問題及放置到專案資料夾內
+1. 將你的問題集放置到專案資料夾內
 2. 執行 `python simplegoogle-complete.py [檔名]`
