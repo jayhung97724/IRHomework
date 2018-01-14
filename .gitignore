@@ -1,4 +1,6 @@
 *.DS_Store
 *.bz2
+.ipynb_checkpoints
+*.pyc
 Wiki_Extractor-origin/wiki_extractor/
 Wiki_Extractor-origin/wiki_data.json

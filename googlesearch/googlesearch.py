@@ -10,8 +10,8 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 from threading import Thread
 from collections import deque
-from time import sleep
-        
+import time
+from ua import UserAgent
 class GoogleSearch:
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"
     SEARCH_URL = "https://google.com/search"
@@ -28,6 +28,11 @@ class GoogleSearch:
         pages = int(math.ceil(num_results / float(GoogleSearch.RESULTS_PER_PAGE)));
         fetcher_threads = deque([])
         total = None;
+        ua = UserAgent()
+        DEFAULT_HEADERS = [
+            ('User-Agent', ua.random()),
+            ("Accept-Language", "en-US,en;q=0.5"),
+        ]
         for i in range(pages) :
             start = i * GoogleSearch.RESULTS_PER_PAGE
             opener = urllib2.build_opener()
@@ -42,6 +47,7 @@ class GoogleSearch:
             if len(searchResults) + len(results) > num_results:
                 del results[num_results - len(searchResults):]
             searchResults += results
+            
             if prefetch_pages:
                 for result in results:
                     while True:
@@ -60,11 +66,15 @@ class GoogleSearch:
         return SearchResponse(searchResults, total);
         
     def parseResults(self, results):
+        tStart = time.time()
         searchResults = [];
         for result in results:
             url = result["href"];
             title = result.text
             searchResults.append(SearchResult(title, url))
+        tEnd = time.time()
+        period = tEnd - tStart
+        print "parseResults cost %f sec" % period
         return searchResults
 
 class SearchResponse:
@@ -80,19 +90,27 @@ class SearchResult:
         self.__markup = None
     
     def getText(self):
+        # tStart = time.time()
         if self.__text is None:
             soup = BeautifulSoup(self.getMarkup(), "lxml")
             for junk in soup(["script", "style"]):
                 junk.extract()
                 self.__text = soup.get_text()
+        # tEnd = time.time()
+        # period = tEnd - tStart
+        # print "getText cost %f sec" % period
         return self.__text
     
     def getMarkup(self):
+        # tStart = time.time()
         if self.__markup is None:
             opener = urllib2.build_opener()
             opener.addheaders = GoogleSearch.DEFAULT_HEADERS
             response = opener.open(self.url);
             self.__markup = response.read()
+        # tEnd = time.time()
+        # period = tEnd - tStart
+        # print "getMarkup cost %f sec" % period
         return self.__markup
     
     def __str__(self):
