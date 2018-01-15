@@ -1,6 +1,4 @@
-
 # coding: utf-8
-
 import json
 import jieba
 import jieba.posseg as pseg
@@ -38,8 +36,6 @@ def cutQuestion1(no):
     qstring = ''
     qstring += q_list[no]['Question'][0:30].encode('utf-8')
     qstring += ' wiki'
-    outstring = '==========\n' + str(no + 1) + ': ' + qstring + '\n'
-    outfile.write(outstring)
     print qstring
     return qstring
 
@@ -75,8 +71,6 @@ def findAnswer(no):
         else:
             ans = 'B'
     print ans, q_list[no][ans]
-    outstring = 'Ans: ' + ans + ' ' + q_list[no][ans] + '\n'
-    outfile.write(outstring)
     return ans
 
 
@@ -99,17 +93,13 @@ if __name__== "__main__":
         print '你沒輸入檔名, 故以 %s 為問題集' % filename
     with open(filename, 'rb') as qf:
         q_list = json.load(qf)
-    qf.close()
-    outfile = open('myanswer.json', 'wb')
     tStart = time.time()
     final = ultimate()
     tEnd = time.time()
     period = tEnd - tStart
     print "It cost %f sec" % period
     jstring = json.dumps(final)
-    json.dump(final, outfile)
-    outstring = "It cost " + period + " sec\n"
-    outfile.write(outstring)
-    outfile.close()
     print 'Final Answer: '
     print jstring
+    with open('myanswer.json', 'wb') as outfile:
+        json.dump(final, outfile)
