@@ -8,6 +8,7 @@ from collections import deque
 import time
 from ua import UserAgent
 class GoogleSearch:
+    # Mozilla/5.0 (compatible; MSIE 7.0; PPC; SV1;Trident/2.0)
     USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/603.3.8 (KHTML, like Gecko) Version/10.1.2 Safari/603.3.8"
     SEARCH_URL = "https://google.com/search"
     RESULT_SELECTOR = ".srg h3.r a"

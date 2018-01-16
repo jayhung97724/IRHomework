@@ -88,6 +88,7 @@ def ultimate():
         ans = findAnswer(no)
         ans_list.append(ans)
         print ans_list
+        time.sleep(0.05)
     return ans_list
 
 
